@@ -1,0 +1,15 @@
+
+<%=	error_messages_for('genre',:header_message=>nil,:message=>nil)%>
+<% form_remote_for( :genre, 
+					:url => { :action => "addGenre", :id=>params[:id] } ,
+					:update => "newGenre") do |f| %>		
+	<div id="statusrow">
+        <div id="statusblock">Genre:</div>
+        <div id="statusblock"><%=f.text_field	:name ,:size=> 15 %></div>
+    	    <%= submit_tag 'anlegen' %>
+		</div>
+    </div>
+<% end %>
+<%	if	!@genre.nil? and @genre.valid?	%>
+<%=		redirect_to "music" %>
+<%	end	%>

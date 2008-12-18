@@ -1,0 +1,31 @@
+<%	Server.find(:all).each do |@server|	%>
+<%#	Alle remote Genres anzeigen	%>
+<h2><%= @server.address %>:</h2>
+<hr/>
+<%	if @server.available? %>
+	<%	RemoteGenre.setServer(@server) %>
+	<%	RemoteGenre.find(:all).each do |@genre| %>
+		<div class="song-pane genre" id="<%= dom_id(@genre,'entry')%>">
+			<%# Ein und ausklappen des Requestes%>
+			<img src="images/genre.png" onclick="Effect.toggle('<%=dom_id(@genre)%>', 'blind', { duration: 0.2});"/>		
+			<%# Request zum auflisten der Artisten%>
+			<%= link_to_remote( @genre.name,:update =>dom_id(@genre), 
+								:url => { :action=>"remoteArtist", :id=>@genre.id ,:server_id=>@server.id},
+								:loading => "waitscreen.show()",
+								:complete => "waitscreen.hide();exp"+@genre.id.to_s+".pander()")%>
+		</div>		
+		<%# Div für Ergebnis der Anfrage%>
+		<%	div_for @genre do %>
+			<div></div>
+		<%	end %>
+	<%	end %>
+<%	elsif @server.online? %>
+	<div id="tag-status-error">
+		Server verweigert die Verbindung
+	</div>	
+<%	else %>
+	<div id="tag-status-error">
+		Server nicht erreichbar
+	</div>
+<%	end	%>
+<%	end	%>

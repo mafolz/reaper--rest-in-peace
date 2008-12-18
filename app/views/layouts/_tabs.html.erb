@@ -1,0 +1,29 @@
+<!--	Diese Datei erstellt Dynamisch die Tabstruktur und setzt den 
+		Controller-entsprechenden Tab visuel aktiv
+-->
+<%	tabs =	[{"name"=>"Streamripper","control"=>"streamripper"},
+			{"name"=>"Musik DB","control"=>"music"},
+			{"name"=>"Radio","control"=>"radio"}]%>
+<%	if hasRole "admin" %>	
+<%		tabs+=	[{"name"=>"Einstellungen","control"=>"settings"}] %>
+<%	end%>
+<%	tabs+=	[{"name"=>"logout","control"=>"user/out"}] %>
+<%	if session[:logon] %>
+<%		tabs.each do |tab| %>
+<%			if params[:controller] == tab["control"] %>
+<%=				link_to '
+	        <div class="active-tab" >
+	        <div id="tab-left"></div>
+	        <div id="tab-middle">'+ tab["name"] +'</div>
+	        <div id="tab-right"></div>
+	        </div>'	, :controller=>tab["control"] %>
+<%			else %>
+<%=				link_to '
+	        <div class="tab" >
+	        <div id="tab-left"></div>
+	        <div id="tab-middle">'+ tab["name"] +'</div>
+	        <div id="tab-right"></div>
+	        </div>'	, :controller=>tab["control"] %>
+<%			end %>
+<%		end %>
+<%	end %>

@@ -1,0 +1,289 @@
+<html>
+<head>
+<title>jlGui Player Applet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head>
+<SCRIPT LANGUAGE="JavaScript"><!--
+function pressStart()
+{
+	document.player.pressStart();
+}
+function pressPause()
+{
+	document.player.pressPause();
+	if (document.panel.pause.value=="Resume/Pause") document.panel.pause.value="Pause/Resume";
+	else document.panel.pause.value="Resume/Pause";
+}
+function pressStop()
+{
+	document.player.pressStop();
+}
+function pressShuffle()
+{
+	document.player.pressShuffle();
+}
+function pressRepeat()
+{
+	document.player.pressRepeat();
+}
+
+function pressNext()
+{
+	document.player.pressNext();
+}
+function pressPrevious()
+{
+	document.player.pressPrevious();
+}
+function loadSkin()
+{
+	var skinURL = document.panel.skinselect.options[document.panel.skinselect.selectedIndex].value;
+	if (skinURL != "") document.player.loadMySkin(getBaseURL()+"skins/"+skinURL);
+}
+function loadPlaylist()
+{
+	var playlistURL = document.panel.playlist.value;
+	if (playlistURL != "")
+	{
+	   document.player.loadMyPlaylist(playlistURL);
+	   document.player.resetMyPlaylist();
+	}
+}
+function getBaseURL()
+{
+	var baseURL = location.href;
+	baseURL = baseURL.substring(0,(baseURL.lastIndexOf("/"))+1);
+	return baseURL;
+}
+function getPlaylist()
+{
+	var playlist = document.player.getPlaylistDump();
+	alert(playlist);
+}
+function getCurrentState()
+{
+	var state = document.player.getPlayerState();
+	if (state == 0) state = "INIT";
+	else if (state == 1) state = "OPEN";
+	else if (state == 2) state = "PLAY";
+	else if (state == 3) state = "PAUSE";
+	else if (state == 4) state = "STOP";
+	alert(state);
+}
+function getCurrentSong()
+{
+	var song = document.player.getCurrentSongName()+"\n"+document.player.getCurrentSongPath();
+	alert(unescape(song));
+}
+
+function getGain()
+{
+	var gain = document.player.getGain();
+	return gain;
+}
+
+function getBalance()
+{
+	var balance = document.player.getBalance();
+	return balance;
+}
+
+function setBalance(val)
+{
+	document.player.setBalance(val);
+}
+
+function setGain(val)
+{
+	document.player.setGain(val);
+}
+
+function init()
+{
+  DumpPlaylist();
+  document.panel.gainvalue.value=getGain();
+  document.panel.balancevalue.value=getBalance();
+}
+
+function DumpPlaylist()
+{
+ var playlist=""+document.player.getPlaylistDump()+"";
+ var playlist_array=playlist.split("#");
+ var iframedoc = document.getElementById('myiframe').contentDocument;
+
+ if (iframedoc==null) iframedoc=document.frames.myiframe.document;
+ with (iframedoc)
+ {
+  open("text/html");
+  clear();
+  write("<html><head><title>Blank</title></head><body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>\n");
+  for (var loop=0; loop < playlist_array.length; loop++)
+  {
+    var data_array = playlist_array[loop].split("|");
+    var col = "#000000";
+    for (var loopd=0; loopd < data_array.length; loopd++)
+    {
+     if (loopd == 0) col = "#000000";
+     else col = "#AAAAAA";
+     if (data_array[loopd].length > 0) writeln("<font face=Verdana size=-2 color="+col+">"+unescape(data_array[loopd])+"</font><br>");
+    }
+  }
+  write("</body></html>\n");
+  close();
+  }
+
+}
+//--></SCRIPT>
+<body bgcolor="#FFFFFF" text="#000000" link="#000066" vlink="#000066" alink="#000066" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="init()">
+<div align="center">
+  <table width="90%" border="0" cellspacing="1" cellpadding="1">
+    <tr>
+      <td colspan="2" align="center"><p><font color="#0000FF" size="-1" face="Verdana, Arial, Helvetica, sans-serif"><b>jlGui Applet 2.3.2a - Full Edition - </b></font></p>
+        <p><font face="Verdana, Arial, Helvetica, sans-serif" size="-1">Full edition allows to play any file or stream hosted on the web server that hosts this applet. <br>
+                        <b><br>
+                        </b><font size="-2">To play any MP3 or Ogg Vorbis File/Stream (e.g. : 44Khz, 128Kbps), you need a browser JavaSound 1.0 compliant. <br>
+      Mozilla 1.x, Opera, Netscape 6.x<b>+</b> or IE 4.x<b>+ </b>with <b>Java Plugin 1.3</b> or <strong>higher</strong> (1.4, 1.5, 1.6).<br>
+&nbsp;      <font face="Verdana, Arial, Helvetica, sans-serif" color="#0033FF"><br>
+      </font></font></font></p></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">
+        <table border="0" cellspacing="1" cellpadding="1">
+          <tr bgcolor="#000000">
+            <td align="center" bgcolor="#FFFFFF"><font color="#0000FF" size="-1" face="Verdana, Arial, Helvetica, sans-serif"><b>&nbsp;- jlGui Applet -&nbsp;</b></font></td>
+	    </tr>
+          <tr bgcolor="#000000"><td>
+<!-- jlGui Applet : Begin copy/paste -->
+<script src="playerapplet.js"></script>
+<!-- jlGui Applet : End copy/paste -->
+</td>
+          </tr>
+        </table>
+      </td>
+      <td align="center" valign="top">
+      <form method="post" action="" name="panel">
+        <table border="0" cellspacing="1" cellpadding="1">
+          <tr bgcolor="#000000">
+            <td align="center" bgcolor="#FFFFFF"><font color="#0000FF" size="-1" face="Verdana, Arial, Helvetica, sans-serif"><b>- Javascript Control Panel (Optional) -</b></font> </td>
+  		  </tr>
+          <tr bgcolor="#000000">
+            <td>
+              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr bgcolor="#669999" align="center">
+                  <td bgcolor="#EEEEEE"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+                        <tr>
+                          <td align="right">
+                            <select name="skinselect">
+                              <option value="wa021.wsz">WinAmper</option>
+                              <option value="bluev.wsz">Blue Visions</option>
+                              <option value="blizzard2.wsz">Blizzard 2</option>
+                              <option value="bao.wsz" selected>Bang & Olufsen</option>
+                            </select>
+                          </td>
+                          <td align="left">
+                            <input type="button" name="loadskin" value="Load Skin" onClick="loadSkin()">
+                          </td>
+                        </tr>
+                        <tr align="center">
+                          <td colspan="2"><a href="http://www.1001winampskins.com"><font face="Verdana, Arial, Helvetica, sans-serif" size="-2">More
+                            WinAmp 2.x skins ...</font></a></td>
+                        </tr>
+                      </table>
+                      <hr size="1" noshade>
+                      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+                        <tr align="center">
+                          <td>
+                            <input type="button" name="play" value="Play" onClick="pressStart()">
+                          </td>
+                          <td>
+                            <input type="button" name="pause" value="Resume/Pause" onClick="pressPause()">
+                          </td>
+                          <td>
+                            <input type="button" name="stop" value="Stop" onClick="pressStop()">
+                          </td>
+                        </tr>
+                      </table>
+                      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+                        <tr align="center">
+                          <td width="50%" align="left"> <font size="-2">
+                            <input type="button" name="previous" value="Previous &lt;" onClick="pressPrevious()">
+                            </font></td>
+                          <td width="50%" align="right"> <font size="-2">
+                            <input type="button" name="next" value="&gt; Next" onClick="pressNext()">
+                            </font></td>
+                        </tr>
+                      </table>
+                      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+                        <tr align="center">
+                          <td width="50%" align="left"> <font size="-2">
+                            <input type="button" name="shuffle" value="Shuffle" onClick="pressShuffle();DumpPlaylist()">
+                            </font></td>
+                          <td width="50%" align="right"> <font size="-2">
+                            <input type="button" name="repeat" value="Repeat" onClick="pressRepeat()">
+                            </font></td>
+                        </tr>
+                      </table>
+                      <hr size="1" noshade>
+                      <table width="100%" border="0" cellspacing="1" cellpadding="1">
+                        <tr>
+                          <td align="right">
+                            <input type="text" name="playlist" value="http://yourserver.com/playlist.m3u" size="30">
+                          </td>
+                          <td align="left">
+                            <input type="button" name="loadplaylist" value="Load Playlist" onClick="loadPlaylist();DumpPlaylist()">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2"><iframe src="" width="100%" height="80" name="myiframe" id="myiframe" nowrap>
+                            </iframe></td>
+                        </tr>
+                      </table>    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td align="left">
+                            <input type="button" name="state" value="Current State" onClick="getCurrentState()">
+                          </td>
+                          <td align="right">
+                            <input type="button" name="current" value="Display Current Song" onClick="getCurrentSong()">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" align="left"><hr size="1" noshade></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" align="left"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="50%"><input type="button" name="getgain" value="Get Volume" onClick="document.panel.gainvalue.value=getGain();"></td>
+                              <td width="50%" align="right"><input name="getbalance" type="button"  onClick="document.panel.balancevalue.value=getBalance();" value="Get Balance"></td>
+                            </tr>
+                            <tr>
+                              <td width="50%"><input name="gainvalue" type="text" size="3">
+                                in [0,100] </td>
+                              <td width="50%" align="right">[-1.0,1.0]
+                                <input name="balancevalue" type="text" size="3"></td>
+                            </tr>
+                            <tr>
+                              <td width="50%"><input name="setgain" type="button"  onClick="setGain(document.panel.gainvalue.value)" value="Set Volume"></td>
+                              <td width="50%" align="right"><input name="setbalance" type="button"  onClick="setBalance(document.panel.balancevalue.value)" value="Set Balance"></td>
+                            </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                    </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="-2" color="#0000CC"><font color="#FFFFFF"><br>
+            <a href="http://www.javazoom.net">http://www.javazoom.net</a>, </font><font face="Verdana, Arial, Helvetica, sans-serif" size="-2"><font color="#0033FF">- </font><font face="Verdana, Arial, Helvetica, sans-serif" color="#0033FF"> Learn more at <a href="http://www.javazoom.net/applets/jlguiapplet/">jlGui Applet homepage</a></font></font><font color="#FFFFFF"> <br>
+            <br>
+            </font><font color="#0033FF">&copy; JavaZOOM 1999-2006</font></font></td>
+    </tr>
+  </table>
+  <br>
+</div>
+</body>
+</html>

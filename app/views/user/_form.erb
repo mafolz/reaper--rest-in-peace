@@ -1,0 +1,21 @@
+<div id="goAway">
+	<% form_for :user, :url => { :action => "create" } do |f| %>
+		<div id="statusrow">
+			<div id="statusblock">Benutzer:</div>
+			<div id="statusblock"><%=f.text_field		:name ,:size=> 15 %></div>
+		</div>
+		<div id="statusrow">
+			<div id="statusblock">Passwort:</div>
+			<div id="statusblock"><%=f.password_field	:password ,:size=> 15 %></div>
+		</div>
+		<div id="statusrow">
+			<div id="statusblock">Passwort wiederhohlen:</div>
+			<div id="statusblock"><%=f.password_field	:password2 ,:size=> 15 %></div>
+		</div>
+		<div id="statusrow">
+			<div id="statusblock">&nbsp;</div>
+			<div id="statusblock"><%= submit_tag 'anlegen' %></div>            
+	<% end %>
+		<div id="statusblock"><%= button_to "Abbrechen",:action => "index" %></div>				
+	</div>    	
+</div>

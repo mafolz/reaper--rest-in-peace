@@ -1,0 +1,31 @@
+<%	if Server.find(:all).length != 0 %>
+<%	Server.find(:all).each do |server| %>
+<div class="song-pane" id="statusrow">
+    <div id="statusblock"><%= server.address %></div>
+    <div id="statusblock"><%= server.user.name %></div>
+    <div id="statusblock">
+        <%	if server.online? %>
+        <span id="tag-status">Online</span>
+        <%	else %>
+        <span id="tag-status-error">Offline</span>
+        <%	end %>
+    </div>
+    <div id="statusblock">
+        <%= link_to(	image_tag("list-remove.png") ,
+        {:action => "serverDestroy",:id=>server.id},
+        :confirm => "Server wirklich löschen?" ) %>
+    </div>
+</div>
+<%	end %>
+<%	else %>
+<div id="tag-status-error">
+    Keine Server eingetragen,
+    <br/>
+    Bitte Server hinzufügen.
+</div>
+<% end %>
+<div id="newServer">
+</div>
+<%= link_to_remote(	image_tag("server-add.png",:mouseover=>"/images/active-server-add.png") ,
+:update => "newServer",
+:url => { :action => "newServer" }) %>

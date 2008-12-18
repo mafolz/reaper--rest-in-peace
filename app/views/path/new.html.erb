@@ -1,0 +1,20 @@
+
+<%=	error_messages_for('pfad',:header_message=>nil,:message=>nil)%>
+<% form_remote_for( :path, 
+					:url => { :action => "new" } ,
+					:update => "newPath",
+					:loading => "waitscreen.show()",
+					:complete => "waitscreen.hide()") do |f| %>		
+	<div id="statusrow">
+        <div id="statusblock">Alias:</div>
+        <div id="statusblock"><%=f.text_field	:name ,:size=> 8 %></div>
+        <div id="statusblock">Pfad:</div>
+        <div id="statusblock"><%=f.text_field	:uri ,:size=> 15 %></div>
+      	<div id="statusblock">
+    	    <%= submit_tag 'anlegen' %>
+		</div>
+    </div>
+<% end %>
+<%	if	!@pfad.nil?	and @pfad.valid?	%>
+<%=		redirect_to "settings"%>
+<%	end	%>

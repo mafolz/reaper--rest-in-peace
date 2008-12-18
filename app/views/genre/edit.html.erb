@@ -1,0 +1,11 @@
+<%=	error_messages_for('genre',:header_message=>nil,:message=>nil)%>
+<%	if params[:genre].nil?	%>
+<%		form_remote_for :genre, 
+						:url => { :action => "edit", :id => @genre.id },
+						:update=> dom_id(@genre,"entry") do |f| %>
+<%=			f.text_field	:name ,:value=>@genre.name,:size=> 15 %>
+<%		end	%>
+<%	else	%>	
+	<%# Eintrag und Buttons einblenden%>
+	<%= render :partial=>"genre/buttons"%>
+<%	end	%>

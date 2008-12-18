@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>Prototype</title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/screen.css" />
+        <script language="JavaScript" src="javascripts/prototype.js">
+        </script>
+        <script language="JavaScript" src="javascripts/effects.js">
+        </script>
+        <script language="JavaScript" src="javascripts/application.js">
+        </script>
+    </head>
+    <body>
+        <script language="JavaScript">
+            var toolie = new Tooltip();
+            // Array mit den interpreten-Tags
+            var musikquerry = ['under_pressure'];
+            // Wenn dokument geladen ist
+            Event.observe(window, 'load', function(){
+                musikquerry.each(function(s){
+                    //Registriere für jeden Tag ein OnClick Ereigniss
+                    Event.observe(s, 'click', function(){
+                        // Wenn schon sichtbar, Blende Songs aus
+						// und Blende Interpretencheckbox ein
+                        if ($(s + songtag).visible()) {
+							Effect.BlindUp(s + songtag, {
+								duration: 0.2
+							});
+							$$( '#'+ s + ' input' )[0].show();
+						//Wenn nicht, erfrage ob leer, wenn ja, Ajax-Request
+						}else{
+							$$( '#'+ s + ' input' )[0].hide();
+							Effect.BlindDown(s + songtag, {
+								duration: 0.2
+							});
+						}
+                    });
+                    $(s + songtag).hide();
+                });
+            });
+        </script>
+        <div id="header">
+            <center>
+                <div id="logo">
+                </div>
+            </center>
+        </div>
+        <div id="pane">
+            <div class="spacer">
+            </div>
+            <a href="Streamripper-info.html">
+                <div class="tab">
+                    <div id="tab-left">
+                    </div>
+                    <div id="tab-middle">
+                        Streamripper
+                    </div>
+                    <div id="tab-right">
+                    </div>
+                </div>
+            </a>
+            <a href="Musik-DB.html">
+                <div class="active-tab">
+                    <div id="tab-left">
+                    </div>
+                    <div id="tab-middle">
+                        Musik DB
+                    </div>
+                    <div id="tab-right">
+                    </div>
+                </div>
+            </a>
+            <a href="Einstellungen.html">
+                <div class="tab">
+                    <div id="tab-left">
+                    </div>
+                    <div id="tab-middle">
+                        Einstellungen
+                    </div>
+                    <div id="tab-right">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div id="main">
+            <div class="ripper">
+                <div id="left-panel">
+                    <div id="cover">
+                        <img src="images/drive-harddisk.png" alt="DB" />
+                    </div>
+                </div>
+                <div id="status">
+                    <h2>Metal &amp; Rock:</h2>
+                    <hr/><b id="under_pressure"><input type="checkbox" />Under Pressure</b>
+                    <div id="under_pressure_songs">
+                        <div class="song-pane" onmouseover="toolie.showWith('Hohoho')">
+                            <input type="checkbox" />Living on Stage 
+                            3:11 <span id="tag-status">Ok</span>
+                            <img src="images/edit.png"/>
+                        </div>
+                        <div class="song-pane" id="uneven" onmouseover="toolie.showWith('Hihihi')">
+                            <input type="checkbox" />Fear Works 
+                            6:03 <span id="tag-status-fixed">Korrigiert</span>
+                            <img src="images/edit.png"/>
+                        </div>
+                        <div class="song-pane" onmouseover="toolie.showWith('Hihihi')">
+                            <input type="checkbox" />Football 
+                            1:46 <span id="tag-status-error">Nicht Korrigierbar</span>
+                            <img src="images/edit.png"/>
+                        </div>
+                    </div><h2>Electronic:</h2>
+					<hr/>
+					<h2>Dupletten:</h2>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

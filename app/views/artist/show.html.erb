@@ -1,0 +1,54 @@
+<div id="song">
+	<%	if hasRole "admin" %>
+	<%#	Verschieben von Songs %>
+	<%	form_for	:songs, 
+					:url=>{ :controller=>"song",
+					:action => "moveTo",:id=>@artist.id }	do |@songform| %>
+		<%# Anzeigen aller Songs %>
+		<%	@artist.songs.each do |song| %>
+		<div class="song-pane song" <%= cycle '','id="uneven"'%>>
+			<div class="song" id="<%= dom_id(song,'entry')%>">
+			<%= image_tag "audio-x-generic.png"%>
+				<%# Checkbox zum verschieben %>
+				<%=		@songform.check_box	song.id  %>
+				<%#	Artist editiern Link %>	
+			<%#	Link zur Datei zum Downloaden %>
+			<%= link_to song.title, "/Genres/" + song.artist.genre.id.to_s +
+									"/Artists/" + song.artist.id.to_s +
+									"/Songs/" + song.id.to_s + "." + song.format %>
+			</div>
+		</div>
+		<%		div_for song do	%>
+		<%		end	%>
+		<%	end	%>
+		<%#	 zeige Multiple-Choice an und Submit-Button%>
+		<%		artistnames = []	%>
+		<%		Artist.find(:all, :order=>["\"name\" ASC"]).each do |artist| 
+					artistnames << artist.name 	
+				end	%>
+		<%=		@songform.select :artist, artistnames %>
+		<%=		@songform.submit	"verschieben"  %>
+	<%	end	%>
+	<% elsif hasRole "listener" %><%# Anzeigen aller Songs %>
+		<%	@artist.songs.each do |song| %>
+		<div class="song-pane song" <%= cycle '','id="uneven"'%>>
+			<div class="song" id="<%= dom_id(song,'entry')%>">
+			<%= image_tag "audio-x-generic.png"%>
+			<%# wenn berechtigt %>
+			<%	if hasRole "tagger" %>
+				<%= link_to_remote( image_tag("edit.png"),:update =>dom_id(song,"entry"), 
+											:url => { :controller=>"song",:action=>"edit", :id=>song.id },
+											:loading => "waitscreen.show()",
+											:complete => "waitscreen.hide()")%>
+			<%	end	%>	
+			<%#	Link zur Datei zum Downloaden %>
+			<%= link_to song.title, "/Genres/" + song.artist.genre.id.to_s +
+									"/Artists/" + song.artist.id.to_s +
+									"/Songs/" + song.id.to_s + "." + song.format %>
+			</div>
+		</div>
+		<%		div_for song do	%>
+		<%		end	%>
+		<%	end	%>
+	<%	end	%>
+</div>

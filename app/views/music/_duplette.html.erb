@@ -1,0 +1,10 @@
+<%#	Jede MP3 im Streamripper Pfad anzeigen %>
+<%	FileUtils.cd(File.join(RAILS_ROOT, "public", "mp3","duplette"))	%>
+<%	Dir["*.mp3"].each() do |file| %>		
+<div class="song-pane song"  <%= cycle('','id="uneven"')%>>
+	<div id="statusblock">
+		<%= image_tag "audio-x-generic.png"%>
+		<%= link_to file, "mp3/duplette/"+file %>
+	</div>
+</div>
+<%	end	%>

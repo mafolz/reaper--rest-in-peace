@@ -1,0 +1,12 @@
+<div class="song-pane genre" id="<%= dom_id(@genre,'entry')%>">
+	<%# Eintrag einblenden%>
+	<%= link_to_remote( image_tag("go-bottom.png"),:update =>dom_id(@genre), 
+							:url => { :controller=>"genre",:action=>"edit", :id=>@genre.id },
+							:loading => "waitscreen.show()",
+							:complete => "waitscreen.hide()")%>	
+<%	end%>
+</div>
+<%# Div für Ergebnis der Anfrage%>
+<%	div_for @genre do %>
+	<div></div>
+<%	end %>

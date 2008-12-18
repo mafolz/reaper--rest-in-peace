@@ -1,0 +1,23 @@
+<div id="statusrow">
+    <div id="statusblock"
+	<%= tooltip "Über den Einsortieren.Button,we rden die Mp3s in die 
+				Musikdatenbank verschoben und in die entsprechenden 
+				Verzeichnise verschoben."%>>
+		<%= button_to "einsortieren",{ :action=>"merge"} %>
+	</div>
+    <div id="statusblock"
+	 <%= tooltip  "Dieser Button leert das Streamripper-Arbeitsverzeichnis"%>>
+		<%= button_to "löschen",{ :action=>"clear"},
+		:confirm=>"Alle MP3s im Verzeichnis werden gelöscht. Fortfahren?" %>
+	</div>
+</div>
+<%#	Jede MP3 im Streamripper Pfad anzeigen %>
+<%	FileUtils.cd(File.join(RAILS_ROOT,"public", "mp3"))	%>
+<%	Dir["*.mp3"].each() do |file| %>		
+<div class="song-pane song"  <%= cycle('','id="uneven"')%>>
+	<div id="statusblock">
+		<%= image_tag "audio-x-generic.png"%>
+		<%= link_to file, "mp3/"+file %>
+	</div>
+</div>
+<%	end	%>

@@ -1,0 +1,11 @@
+<%=	error_messages_for('artist',:header_message=>nil,:message=>nil)%>
+<%	if params[:artist].nil?	%>
+<%		form_remote_for :artist, 
+						:url => { :action => "edit", :id => @artist.id },
+						:update=> dom_id(@artist,"entry") do |f| %>
+<%=			f.text_field	:name ,:value=>@artist.name,:size=> 15 %>
+<%=			f.submit 'ändern' %>
+<%		end	%>
+<%	else	%>	
+	<%= render :partial=>"artist/buttons" %>
+<%	end	%>

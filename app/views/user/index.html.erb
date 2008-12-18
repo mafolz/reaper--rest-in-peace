@@ -1,0 +1,52 @@
+
+<div class="ripper">
+    <div id="left-panel">
+        <div id="cover">
+            <%= image_tag "gnome-keyring-manager.png" %>
+        </div>
+    </div>
+<div id="status">
+	<% # Testen ob noch kein user angelegt wurde(Installation) %>
+    <% if User.find(:all).length == 0 %>
+		<h2>Willkommen</h2>
+		<hr/>
+		<div>&nbsp;</div>
+		<div>
+		Dies ist das erste mal, das sie Reaper starten.<br/><br/>
+		Bevor wir loslegen muss ein Benutzerkonto angelegt werden, 
+		damit sie sich einloggen können.<br/><br/>
+		Dabei erhält der erste angelegte Benutzer Administratorrechte.
+		Alle folgenden Benutzer müßen von diesem, oder anderen 
+		Administratoren/Moderatoren freigeschaltet werden.
+		</div>
+		<br/>
+		<div id="error">
+			Solang noch kein Benutzer angelegt wurde besteht ein Sicherheitsrisiko!
+		</div>
+		<div>
+	<% else %>
+        <h2>Login:</h2>
+        <hr/>
+		<div>&nbsp;</div>					
+		<% if flash['login'] %>   
+			<div id="tag-status-error">
+				<%= flash['login'] %>
+			</div> 
+		<% end %> 	
+		<% form_for :login, @login, :url => { :action => "login" } do |f| %>
+        	<div id="statusrow">
+                <div id="statusblock">Benutzer:</div>
+                <div id="statusblock"><%=f.text_field		:name ,:size=> 15 %></div>
+            </div>
+			<div id="statusrow">
+                <div id="statusblock">Passwort:</div>
+                <div id="statusblock"><%=f.password_field	:password ,:size=> 15 %></div>
+            </div>
+			<div id="statusrow">
+                <div id="statusblock">&nbsp;</div>
+                <div id="statusblock"><%= submit_tag 'Einlogen' %></div>            
+        <% end %>
+	<% end %>
+            <div id="statusblock"><%= button_to "neuer Benutzer",:action => "create" %></div>
+      	</div>
+</div>

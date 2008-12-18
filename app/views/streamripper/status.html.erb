@@ -1,0 +1,32 @@
+<% detect @online %>
+<div id="statusrow">
+    <%#	Onlinestatus anzeigen %>
+    <div id="statusblock">
+        <%	if @online %>
+        <span id="tag-status">Online</span>
+        <%	else %>
+        <span id="tag-status-error">Offline</span>
+        <%	end %>
+    </div>
+    <div id="statusblock">
+        <%=	Streamripper.find(:last).radiostation.address %>
+    </div>
+</div>
+<div id="statusrow">
+    <div id="statusblock">
+<%	if	hasRole("tagger") %>
+<%# Buttons zum An bzw Ausschalten %>
+<%	if @online %>
+<%= button_to "stoppen",{ :action=>"kill"} %>
+<%	else %>
+<%= button_to "starten",{ :action=>"toggle"} %>
+<%	end %>
+	</div>
+    <div class="input" id="statusblock"
+	<%= tooltip "Öffnet einen Dialog zum auswählen eienr Radiostation
+				oder eingabe einer neuen Station"%>	>    	
+<%= link_to "Radiostation wählen",{ :action=>"changeStation"},
+									:popup=>['Radiostationen', 'height=500,width=350'] %>
+	</div>
+<%	end %>
+</div>

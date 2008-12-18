@@ -1,0 +1,16 @@
+<%=	error_messages_for('server',:header_message=>nil,:message=>nil)%>
+<% form_remote_for( :server, 
+					:url => { :action => "newServer" ,:id => params[:id]} ,
+					:update => "newServer",
+					:loading => "waitscreen.show()",
+					:complete => "waitscreen.hide()") do |f| %>		
+        <div id="statusblock"><%=f.text_field	:address ,:size=> 20 %></div>
+        <div id="statusblock"><%=f.select :user_id, 
+		User.find(:all).collect {|user| [ user.name, user.id ] }	%></div>
+      	<div id="statusblock">
+    	    <%= submit_tag 'anlegen' %>
+		</div>
+<% end %>
+<%	if	!@server.nil?	and @server.valid?	%>
+<%=		redirect_to "settings"%>
+<%	end	%>

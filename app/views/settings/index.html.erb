@@ -1,0 +1,56 @@
+
+<div class="ripper">
+	<div id="cover">
+		<%= image_tag "options.png" %>
+	</div>
+	<div id="status" >
+		<h2 <%=tooltip "Teilprogramme sind Anwendungen die Reaper benötigt
+						oder optionale Features ermöglichen.<br/><br/>
+						Falls diese nicht installiert sind, oder falsch erkannt werden,
+						erhalten sie hier Hilfestellung."%>>
+			Teilprogramme:
+		</h2>
+		<hr/>
+		<%= render :action=> "subapps" %>
+		<%= subapps %>
+		<h2 <%=tooltip "Die hier angegebenen Pfade werden verwendet, um ihre Musikdatenbank
+						aufzubauen.<br/><br/>In ihnen werden alle gewünschten Artisten einsortiert."%> >
+			Musik-Pfade:
+		</h2>
+		<hr/>
+		<%= error_messages_for "pfad" %>
+		<%= session[:message] %>
+		<%  session[:message]=nil %>
+		<%= render :partial=>"paths"%>
+		<h2 <%=tooltip "Hier werden die registrierten User aufgelistet"%> >
+			Benutzer:
+		</h2>
+		<hr/>
+		<%= error_messages_for "user" %>		
+		<div id="statusrow" class="description">
+			<div id="statusblock">Benutzer</div>
+			<div id="statusblock" 
+			<%=tooltip "Jedem Benutzer wird eine Rolle zugewiesen.<br/><br/>
+						Die Administrator-Rolle ermöglicht das volle Konfigurieren des Reapers<br/><br/>
+						Der Tagger hingegen, kann nur die Musikdatenbank anpassen/umbenennen/verschieben<br/><br/>
+						Der Listener hat nur die Möglichkeit, sich die Muikdatenbakn anzusehen und auf
+						dessen Musik zuzugreifen"%>>
+				Rolle
+			</div>
+		</div>
+		<%= render :partial=>"users"%>
+		<h2 <%=tooltip "Hier werden die registrierten Server aufgelistet<br/>
+						Jedem Server wird ein existierender Benutzer zugeordnet.
+						Dieser muss am Zielserver existieren und leserechte besitzen."%> >
+			Server:
+		</h2>
+		<hr/>
+		<%= error_messages_for "server" %>		
+		<div id="statusrow" class="description">
+			<div id="statusblock">Adresse</div>
+			<div id="statusblock">Verbunds Benutzer</div>
+			<div id="statusblock">Status</div>
+		</div>
+		<%= render :partial=>"server"%>
+	</div>
+</div>

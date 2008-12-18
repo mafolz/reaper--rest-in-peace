@@ -1,0 +1,76 @@
+<project name="jlGuiApplet" default="usage" basedir=".">
+
+  <!-- Initializations -->
+  <target name="init">
+    <echo message="----------------------------------------------------------------"/>
+    <echo message="------------        BUILDING JLGUI APPLET PACKAGE     ----------"/>
+    <echo message=""/>
+    <property name="year" value="1999-2006"/>
+    <property name="jars" value="${basedir}"/>
+    <property name="sources" value="${basedir}/src"/>
+    <property name="classes" value="${basedir}/classes"/>
+    <property name="api" value="${basedir}/docs"/>
+    <property name="lib" value="${basedir}/lib"/>
+  </target>
+
+  <!-- Build -->
+  <target name="build" depends="init">
+    <echo message="------ Compiling application"/>
+    <javac srcdir="${sources}" destdir="${classes}" includes="**">
+      <classpath>            
+        <pathelement location="${lib}/tritonus_share.jar"/>
+        <pathelement location="${lib}/mp3spi1.9.2.jar"/>
+        <pathelement location="${lib}/vorbisspi1.0.1.jar"/>
+        <pathelement location="${lib}/basicplayer2.3.jar"/>
+        <pathelement location="${lib}/commons-logging-api.jar"/>
+        <pathelement location="${lib}/jlgui2.3.2-light.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <!-- Archive -->
+  <target name="dist" depends="build">
+    <echo message="------ Building JAR file"/>
+  <jar jarfile="${jars}/jlguiapplet2.3.2.jar">
+      <manifest>
+        <attribute name="Created-By" value="JavaZOOM" />
+      </manifest>
+    <fileset dir="${classes}" />
+    <fileset dir="${sources}" includes="javazoom/jlgui/player/amp/metrix.wsz"/>
+  </jar>
+  <!-- <signjar jar="${jars}/jlguiapplet2.3.2.jar" storepass="xxxxx" alias="javazoom"
+           keystore="jzKeystore" keypass="xxxx" /> -->
+  </target>
+
+  <!-- JavaDoc -->
+  <target name="all" depends="dist">
+     <echo message="------ Running JavaDoc"/>
+     <javadoc packagenames="javazoom.*"
+              sourcepath="${sources}"
+              destdir="${api}"
+              bottom="JavaZOOM ${year}">
+      <classpath>
+        <pathelement location="${classes}"/>
+        <pathelement location="${lib}/tritonus_share.jar"/>
+        <pathelement location="${lib}/mp3spi1.9.2.jar"/>
+        <pathelement location="${lib}/vorbisspi1.0.1.jar"/>
+        <pathelement location="${lib}/basicplayer2.3.jar"/>
+        <pathelement location="${lib}/commons-logging-api.jar"/>
+        <pathelement location="${lib}/jlgui2.3.2-light.jar"/>
+      </classpath>
+     </javadoc>
+  </target>
+
+  <!-- Usage -->
+  <target name="usage">
+     <echo message="*** jlGui ANT build script ***"/>
+     <echo message="Usage : "/>
+     <echo message="   ant [target]"/>
+     <echo message=""/>
+     <echo message="   target : "/>
+     <echo message="            build : Build Application"/>
+     <echo message="            dist  : Build Application + Archive (JAR)"/>
+     <echo message="            all   : Build Application + Archive + JavaDoc"/>
+  </target>
+
+</project>

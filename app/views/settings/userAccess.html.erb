@@ -1,0 +1,15 @@
+
+<%=	error_messages_for('user',:header_message=>nil,:message=>nil)%>
+<%	if params[:user].nil?	%>
+<%		form_remote_for :user, 
+						:url => { :action => "userAccess", :id => @user.id },
+						:update=> dom_id(@user) do |f| %>
+<%=			f.select :access, "leecher
+								listener
+								tagger
+								admin"	%>
+<%=			f.submit 'ok' %>
+<%		end	%>
+<%	else	%>
+<%= 	@user.access %>
+<%	end	%>

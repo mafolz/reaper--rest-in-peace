@@ -1,0 +1,37 @@
+
+<%	if Path.find(:all).length != 0 %>
+<%		Path.find(:all).each do |pfad| %>
+<div class="song-pane" id="statusrow">
+	<div id="statusblock">
+	<%	div_for pfad do%>
+		<%= pfad.name %>
+	<%	end%>
+	</div>
+	<div id="statusblock">
+		<div id="tag-status"><%= pfad.uri%></div>
+	</div>
+	<div id="statusblock">
+		<%# nach Refresh kein neues Refresh mehr möglich%>
+		<%= link_to_remote(	image_tag("view-refresh.png") ,
+							:url=>{:action => "path_reload",:id=>pfad.id},
+							:loading => "waitscreen.show()",
+							:complete => "waitscreen.hide()")%>
+		<%= link_to_remote(	image_tag("edit.png") ,
+							:url=>{:controller=>"Path",:action => "edit",:id=>pfad.id},
+							:update=> dom_id( pfad ))%>
+		<%= link_to(	image_tag("list-remove.png") ,
+						{:controller=>"Path",:action => "destroy",:id=>pfad.id},
+						:confirm => "Eintrag wirklich löschen?" )%>
+	</div>
+</div>
+<%		end%>
+<%	else%>
+<div id="tag-status-error">
+	Keine Pfade eingetragen,<br/>
+	Bitte Pfade hinzufügen.
+</div>
+<% end%>
+<div id="newPath"></div>
+<%= link_to_remote(	image_tag("path-add.png",:mouseover=>"/images/active-path-add.png") ,
+					:update => "newPath",
+					:url => { :controller=>"Path",:action => "new" })%>

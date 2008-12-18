@@ -1,0 +1,28 @@
+<div class="ripper">
+    <div id="left-panel">
+        <div id="cover">
+            <%= image_tag "system-users.png" %>
+        </div>
+    </div>
+    <div id="status">
+        <h2>Benutzer anlegen:</h2>
+        <hr/>
+		<%= error_messages_for( 'newuser',:header_message=>nil,:message=>nil) %>
+		&nbsp;
+		<%# Wenn Anlegen erfolgreich war %>
+		<%	if !@created.nil? %>
+			<div>
+				Benutzer wurde angelegt<br/>
+				sie m&uuml;ssen warten bis sie ein Administrator freigeschaltet hat
+			</div>
+			<%=	link_to("zurück",:controller=>"login")%>
+		<%	elsif @inputs.nil? or !@newuser.valid?  # Rendert die input-Form wenn Variable nicht gesetzt %>
+		<%		if !@bothpw.nil? %>
+					<div id="tag-status-error">
+						Beide Passwörter stimmen nicht überein
+					</div>
+		<%		end %>
+		<%= 	render :partial => "form" %>
+		<%	end %>
+	</div>
+</div>

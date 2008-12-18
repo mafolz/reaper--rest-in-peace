@@ -1,0 +1,11 @@
+
+<%=	error_messages_for('pfad',:header_message=>nil,:message=>nil)%>
+<%	if params[:path].nil?	%>
+<%		form_remote_for :path, 
+						:url => { :action => "edit", :id => @pfad.id },
+						:update=> dom_id(@pfad) do |f| %>
+<%=			f.text_field	:name ,:value=>@pfad.name,:size=> 15 %>
+<%		end	%>
+<%	else	%>
+<%= 	@pfad.name %>
+<%	end	%>

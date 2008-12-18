@@ -1,0 +1,15 @@
+<%	if hasRole("tagger")	%>
+	<%	Radiostation.find(:all, :order=>"updated_at").each do |station|	%>
+		<div <%= cycle('','id="uneven"')%>>
+			<%=	link_to(station.address,{:action=>"setStation",:id=>station.id}) %>
+		</div>
+	<%	end	%>
+	<% form_for( :radiostation, :url => { :action => "changeStation" ,}) do |f| %>	
+		<div id="statusrow">
+	        <div id="statusblock"><%=f.text_field	:address ,:size=> 30 %></div>
+	      	<div id="statusblock">
+	    	    <%= submit_tag 'Station hinzufügen' %>
+			</div>
+		</div>
+	<%	end %>
+<%	end	%>

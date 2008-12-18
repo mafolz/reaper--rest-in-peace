@@ -1,0 +1,25 @@
+<%# Ein und ausklappen des Requestes%>
+<img src="images/artist.png" onclick="Effect.toggle('<%=dom_id(@artist)%>', 'blind', { duration: 0.2});"/>
+<%# wenn bereichtigt  %>
+<%	if hasRole "admin" %>
+	<%# Checkbox zum verschieben %>
+	<%=		@form.check_box	@artist.id  %>
+<%	elsif hasRole "tagger" %>	
+	<%# Edit Artist%>
+	<%= link_to_remote( image_tag("edit.png"),:update =>dom_id(@artist,"entry"), 
+						:url => { :controller=>"artist",:action=>"edit", :id=>@artist.id },
+						:loading => "waitscreen.show()",
+						:complete => "waitscreen.hide()")%>
+<%	end	%>	
+<%# Request Link%>
+<%= link_to_remote( @artist.name,:update =>	dom_id(@artist), 
+					:url => { :controller=>"artist",:action=>"show", :id=>@artist.id },
+					:loading => "waitscreen.show()",
+					:complete => "waitscreen.hide()")%>	
+<%# wenn bereichtigt  %>
+<%	if hasRole "tagger" %>
+	<%# Genre löschen%>
+	<%= link_to(	image_tag("list-remove.png") ,
+				{:controller=>"artist",:action => "destroy",:id=>@artist.id},
+				:confirm => "Artist "+@artist.name+" wirklich löschen?\nAlle Songs gehen hierbei verloren" )%>
+<%	end	%>

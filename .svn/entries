@@ -1,0 +1,175 @@
+8
+
+dir
+190
+https://htw-ror-ss08.subversionhoster.de/3445062/Reaper2
+https://htw-ror-ss08.subversionhoster.de
+
+
+
+2008-09-26T09:22:21.617533Z
+190
+htw-ror-ss08
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+16987ed7-5370-4941-b520-cdcf87b528e0
+
+.loadpath
+file
+0
+
+
+add
+
+.project
+file
+0
+
+
+add
+
+.swp
+file
+0
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+README
+file
+0
+
+
+add
+
+Rakefile
+file
+0
+
+
+add
+
+app
+dir
+
+
+
+add
+
+aptanaDB
+dir
+
+
+
+add
+
+config
+dir
+
+
+
+add
+
+db
+dir
+
+
+
+add
+
+doc
+dir
+
+
+
+add
+
+gcs.txt
+file
+0
+
+
+add
+
+index.html
+file
+0
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+lib
+dir
+
+
+
+add
+
+log
+dir
+
+
+
+add
+
+public
+dir
+
+
+
+add
+
+script
+dir
+
+
+
+add
+
+test
+dir
+
+
+
+add
+
+tmp
+dir
+
+
+
+add
+
+vendor
+dir
+
+
+
+add
+

@@ -1,0 +1,112 @@
+8
+
+dir
+0
+https://htw-ror-ss08.subversionhoster.de/3445062/Reaper2/test/fixtures
+https://htw-ror-ss08.subversionhoster.de
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+16987ed7-5370-4941-b520-cdcf87b528e0
+
+artists.yml
+file
+
+
+
+add
+
+genres.yml
+file
+
+
+
+add
+
+pfads.yml
+file
+
+
+
+add
+
+radiostations.yml
+file
+
+
+
+add
+
+remote_artists.yml
+file
+
+
+
+add
+
+remote_genres.yml
+file
+
+
+
+add
+
+remote_songs.yml
+file
+
+
+
+add
+
+remote_users.yml
+file
+
+
+
+add
+
+servers.yml
+file
+
+
+
+add
+
+songs.yml
+file
+
+
+
+add
+
+streamrippers.yml
+file
+
+
+
+add
+
+users.yml
+file
+
+
+
+add
+

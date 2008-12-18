@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="de">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="Expires" content="<%=Time.now%>"/>
+
+		<title>Reaper - REST in Peace</title>
+		<%= stylesheet_link_tag "screen"%>
+		<%= javascript_include_tag :defaults %>
+	</head>
+	<body>
+		<div id="header">
+			<!--"grim" ist das Gruselige Helferlein des Reapers	-->
+			<div id="grim" onclick="toolie.toggle()"></div>
+			<center>
+				<div id="logo" onclick="errors.toggle()"/>
+			</center>
+			<div id="errors">				
+				<%= session[:errorstack]%>
+			</div>
+			<script language="JavaScript">
+				// initialisierung der Fehlerkonsole und des Helfers
+				var errors = new FailureConsole('errors');				
+            	var toolie = new Tooltip();
+				var waitscreen = new Waiting();
+			</script>
+		</div>
+		<div id="pane"  >
+			<div class="spacer"></div>
+			<%= render :partial => "layouts/tabs" %>
+		</div>		
+		<div id="main">
+			<%= @content_for_layout %>
+		</div>
+		<div class="footer">
+			<%= Time.now %><br/><%= version %> &copy; 2008  Folz, Matthias
+		</div>
+	</body>
+</html>

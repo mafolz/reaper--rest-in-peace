@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	var <%="exp"+@genre.id.to_s%>=new Expander("<%="exp"+@genre.id.to_s%>","<%=dom_id(@genre,"exp")%>","<%=dom_id(@genre)%>","genre");
+</script>
+<%# Genre editieren%>
+<%	if hasRole "tagger" %>	
+	<%= link_to_remote( image_tag("edit.png"),:update =>dom_id(@genre,"entry"), 
+							:url => { :controller=>"genre",:action=>"edit", :id=>@genre.id },
+							:loading => "waitscreen.show()",
+								:complete => "waitscreen.hide()")%>	
+<%	end%>
+<%# Request zum auflisten der Artisten%>
+<%= link_to_remote( @genre.name,:update =>dom_id(@genre), 
+								:url => { :controller=>"genre",:action=>"show", :id=>@genre.id },
+								:loading => "waitscreen.show()",
+								:complete => "waitscreen.hide();exp"+@genre.id.to_s+".pander()")%>
+<%#	berechtigt? %>
+<%	if hasRole "tagger" %>		
+	<%# Artist hinzufügen%>	
+	<%= link_to_remote(	image_tag("artist-add.png",:mouseover=>"/images/active-artist-add.png") ,
+						:update => dom_id(@genre,"newArtist"),
+						:url => { :controller=>"genre",:action => "addArtist", :id=>@genre.id })%>
+	<%# Genre löschen%>
+	<%= link_to(	image_tag("list-remove.png") ,
+						{:controller=>"genre",:action => "destroy",:id=>@genre.id},
+						:confirm => "Genre "+@genre.name+" wirklich löschen?\nAlle Artisten gehen hierbei verloren" )%>
+
+<%	end	%>

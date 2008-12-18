@@ -1,0 +1,47 @@
+<div class="ripper">
+	<div id="cover">
+		<%= image_tag "drive-harddisk.png" %>
+	</div>
+	<div id="status">
+		<%# Wenn berechtigt %>
+		<%	if hasRole "tagger" %>
+			<div id="button"
+				<%= tooltip "Öffnet die Ansicht der Lokalen Musikdatenbank"%>>
+				<%= link_to_function "Local DB","$('local').show();$('remote').hide()" %>
+			</div>
+			<div id="button"
+				<%= tooltip "Öffnet die Ansicht der Musikdatenbank entfernter Rechner"%>>
+				<%= link_to_remote	"Remote DB",:update=>"remote",
+									:url=>{:action=>"remoteGenre"},
+									:loaded=>"$('local').hide();$('remote').show()" %>
+			</div>
+			<%#	Sync-Button %>
+			<!--<div id="button">
+				Sync <span id="tag-status-error">(190)</span>
+			</div>--><br/><br/>
+		<%	end	%>
+	<%# Platzhalter für Remote Request%>
+	<div id="remote"></div>
+	<div id="local">
+		<%#	Alle lokalen Pfade anzeigen	%>
+		<%	Path.find(	:all, :order=>["\"name\" ASC"]).each do |path| %>
+			<h2><%= path.name %>:</h2>
+			<hr/>
+			<%	path.genres.each do |@genre| %>
+				<%=	render :partial=> "genre/all" %>
+			<%	end %>
+			<%	div_for path do	%>
+			<%	end	%>
+			<%# Genre hinzufügen falls berechtigt%>
+			<%	if hasRole "tagger" %>	
+				<%= link_to_remote(	image_tag("genre-add.png",:mouseover=>"/images/active-genre-add.png") ,
+							:update => dom_id(path),
+							:url => { :controller=>"Path",:action => "addGenre", :id=>path.id })%>
+			<%	end	%>
+		<%	end %>			
+		<h2>Dupletten:</h2>
+        <hr/>
+		<%=	render	:partial=>"duplette"	%>
+	</div>
+    </div>
+</div>

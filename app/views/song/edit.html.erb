@@ -1,0 +1,22 @@
+<%=	error_messages_for('song',:header_message=>nil,:message=>nil)%>
+<%	if params[:song].nil?	%>
+<%		form_remote_for :song, 
+						:url => { :action => "edit", :id => @song.id ,:test=>true},
+						:update=> dom_id(@song,"entry") do |f| %>
+<%=			f.text_field	:title ,:value=>@song.title,:size=> 15 %>
+<%=			f.submit 'ändern' %>
+<%		end	%>
+<%	else	%>	
+	<%= image_tag "audio-x-generic.png"%>
+	<%# wenn berechtigt %>
+	<%	if hasRole "tagger" %>
+		<%= link_to_remote( image_tag("edit.png"),:update =>dom_id(song,"entry"), 
+									:url => { :controller=>"song",:action=>"edit", :id=>song.id },
+									:loading => "waitscreen.show()",
+									:complete => "waitscreen.hide()")%>
+	<%	end	%>	
+	<%#	Link zur Datei zum Downloaden %>
+	<%= link_to song.title, "/Genres/" + song.artist.genre.id.to_s +
+							"/Artists/" + song.artist.id.to_s +
+							"/Songs/" + song.id.to_s + "." + song.format %>
+<%	end	%>

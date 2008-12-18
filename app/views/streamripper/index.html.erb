@@ -1,0 +1,32 @@
+
+<div class="ripper">
+	<div id="cover">
+		<%= image_tag "cover.png" %>
+	</div>
+	<div id="status">
+		<h2 <%= tooltip "Der Streamripper ist das Herzstück des Reapers.<br/>
+						Er schneidet aus Online-Radios MP3s, welche zurechtgeschnitten werden.<br/><br/>
+						Über die beiden unteren Buttons, kann er gestartet,beendet werden
+						oder aber die mitzuscheidende Radiostation geändert werden."	%> 
+			><%= image_tag "streamripper.png" %>:</h2>
+		<hr/>
+		<div id="statusrow" class="description">
+			<div id="statusblock">Status</div>
+			<div id="statusblock">Aktuelle Station</div>
+		</div>
+    	<div id="online">
+    		Status abfragen ...
+	        <%=  periodically_call_remote( :update => "online",
+		            :url => { :action => "status" },:frequency => 5) %>
+		</div>
+		<h2	<%= tooltip "Die Songhistory zeigt die bis jetzt schon mittgeschnittenen MP3s an.
+						Mit dem Einsortieren-Button, werden automatisch MP3s von Artisten,
+						welche der Musikdatenbakn schon bekannt sind einsortiert."%>>Song-History:</h2>
+		<hr/>
+    	<div id="history">
+    		Status abfragen ...
+	        <%=  periodically_call_remote( :update => "history",
+		            :url => { :action => "history" },:frequency => 5) %>
+		</div>
+	</div>
+</div>

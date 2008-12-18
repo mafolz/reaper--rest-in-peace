@@ -1,0 +1,25 @@
+
+<%	if User.find(:all).length != 0 %>
+<%		User.find(:all).each do |user| %>
+<div class="song-pane" id="statusrow">
+	<div id="statusblock"><%= user.name	%></div>
+	<div id="statusblock">
+		<div id="<%= dom_id(user)%>">
+	<%= link_to_remote(	user.access , :update=>dom_id(user),
+						:url=>{:controller=>"Settings",:action => "userAccess",:id=>user.id})%>
+		</div>
+	</div>
+	<div id="statusblock">
+	<%	if user.name != session[:user] %>
+	<%= link_to(	image_tag("list-remove.png") ,
+					{:controller=>"Settings",:action => "userDestroy",:id=>user.id},
+					:confirm => "Benutzer wirklich löschen?" )%>
+	<%	end %>
+	</div>
+</div>
+<%		end%>
+<%	else%>
+<div id="tag-status-error">
+	Keine Benutzer eingetragen.
+</div>
+<% end%>

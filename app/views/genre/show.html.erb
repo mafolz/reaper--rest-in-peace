@@ -1,0 +1,40 @@
+<div id="artist">
+	<%# Muss leider sein, wegen Checkbox Formular%>
+	<%	if hasRole "admin" %>
+	<%#	Verschieben von Artisten %>
+	<%		form_for	:artists, 
+					:url=>{ :controller=>"artist",
+					:action => "moveTo",:id=>@genre.id }	do |@form| %>	
+		<%#	Anzeigen aller Artisten%>
+		<%	@genre.artists.each do |@artist| %>
+		<div class="song-pane artist" <%= cycle '','id="uneven"'%>>
+			<div class="artist" id="<%= dom_id(@artist,'entry')%>">
+				<%= render :partial=>"artist/buttons" %>
+			</div>
+		</div>
+		<%		div_for @artist do	%>
+					<div></div>
+		<%		end	%>
+		<%	end	%>
+		<%# zeige Multiple-Choice an und Submit-Button%>
+		<%		genrenames = []	%>
+		<%		Genre.find(:all, :order=>["\"name\" ASC"]).each do |genre| 
+					genrenames << genre.name 	
+				end	%>
+		<%=		@form.select :genre, genrenames %>
+		<%=		@form.submit	"verschieben"  %>
+	<%	end	%>
+	<% elsif hasRole "listener" %>
+		<%#	Anzeigen aller Artisten%>
+		<%	@genre.artists.each do |@artist| %>
+		<div class="song-pane artist" <%= cycle '','id="uneven"'%>>
+			<div class="artist" id="<%= dom_id(@artist,'entry')%>">
+				<%= render :partial=>"artist/buttons" %>
+			</div>
+		</div>
+		<%		div_for @artist do	%>
+					<div></div>
+		<%		end	%>
+		<%	end	%>
+	<%	end	%>
+</div>

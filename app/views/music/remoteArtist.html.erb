@@ -1,0 +1,17 @@
+<%#	Anzeigen aller Artisten%>
+<%	@remoteArtists.each do |@artist| %>
+	<div class="song-pane artist" <%= cycle '','id="uneven"'%>>
+		<div class="artist" id="<%= dom_id(@artist,'entry')%>">
+			<%# Ein und ausklappen des Requestes%>
+			<img src="images/artist.png" onclick="Effect.toggle('<%=dom_id(@artist)%>', 'blind', { duration: 0.2});"/>	
+			<%# Request Link%>
+			<%= link_to_remote( @artist.name,:update =>	dom_id(@artist), 
+					:url => { :action=>"remoteSong", :id=>@artist.id,:server_id=>@server.i },
+					:loading => "waitscreen.show()",
+					:complete => "waitscreen.hide()")%>	
+		</div>
+	</div>
+	<%	div_for @artist do	%>
+		<div></div>
+	<%	end	%>
+<%	end	%>

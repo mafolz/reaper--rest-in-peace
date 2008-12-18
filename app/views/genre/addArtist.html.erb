@@ -1,0 +1,16 @@
+<%=	error_messages_for('artist',:header_message=>nil,:message=>nil)%>
+<%	if	@artist.nil? or !@artist.errors.empty?	%>
+<%		form_remote_for( :artist, 
+					:url => { :action => "addArtist", :id=>params[:id] } ,
+					:update => dom_id(@genre,"newArtist")) do |f| %>		
+	<div id="statusrow">
+        <div id="statusblock">Artist:</div>
+        <div id="statusblock"><%=f.text_field	:name ,:size=> 15 %></div>
+    	    <%= submit_tag 'anlegen' %>
+		</div>
+    </div>
+<%		end %>
+<%	end	%>
+<%	if	!@artist.nil? and @artist.valid?	%>
+<%=		redirect_to "music" %>
+<%	end	%>

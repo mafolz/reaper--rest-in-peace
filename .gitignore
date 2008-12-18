@@ -1,0 +1,14 @@
+.loadpath
+.project
+config/database.yml
+*.log
+*.out
+*.psd
+*.mp3
+*.ogg
+*.svg
+*.xcf
+Thumbs.db
+Thumbs.db:encryptable
+tmp/*
+nbproject/*

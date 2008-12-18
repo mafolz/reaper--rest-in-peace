@@ -1,0 +1,14 @@
+<div class="song-pane genre" id="<%= dom_id(@genre,'entry')%>">
+	<%# Eintrag und Buttons einblenden%>
+	<%= render :partial=>"genre/buttons"%>
+</div>
+<%# neuer Artist Formular-Platzhalter%>
+<div id="<%= dom_id(@genre,"newArtist") %>"></div>
+<%# Div für Ergebnis der Anfrage%>
+<%	div_for @genre do %>
+	<div></div>
+<%	end %>
+<%#	Expander Initialisiern, d.h. DIV zuerst unsichtbar machen%>
+<script type="text/javascript">
+	Effect.toggle("<%=dom_id(@genre)%>", 'blind', { duration: 0.2});	
+</script>
