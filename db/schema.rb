@@ -9,19 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080902060227) do
+ActiveRecord::Schema.define(:version => 20090108125613) do
+
+  create_table "albums", :force => true do |t|
+    t.string  "title"
+    t.integer "artist_id"
+  end
+
+  add_index "albums", ["title"], :name => "index_albums_on_title"
+  add_index "albums", ["artist_id"], :name => "index_albums_on_artist_id"
 
   create_table "artists", :force => true do |t|
-    t.text     "name"
+    t.string   "name"
     t.integer  "genre_id"
+    t.integer  "path_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "artists", ["name"], :name => "index_artists_on_name"
+
   create_table "genres", :force => true do |t|
-    t.text    "name"
-    t.integer "path_id"
+    t.string "name"
   end
+
+  add_index "genres", ["name"], :name => "index_genres_on_name", :unique => true
 
   create_table "paths", :force => true do |t|
     t.text "name"
@@ -52,13 +64,18 @@ ActiveRecord::Schema.define(:version => 20080902060227) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "songs", :force => true do |t|
-    t.text    "title"
-    t.text    "format"
+    t.string  "title"
+    t.string  "format"
     t.text    "location"
     t.integer "artist_id"
+    t.integer "album_id"
     t.boolean "localFlag",  :default => false
     t.date    "created_at"
   end
+
+  add_index "songs", ["title"], :name => "index_songs_on_title"
+  add_index "songs", ["artist_id"], :name => "index_songs_on_artist_id"
+  add_index "songs", ["album_id"], :name => "index_songs_on_album_id"
 
   create_table "streamrippers", :force => true do |t|
     t.text     "other"

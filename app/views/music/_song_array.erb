@@ -1,0 +1,12 @@
+<div id="script">
+        <% temparray = [] %>
+        <% @songs.each do |song| %>
+        	<% temparray << ( RAILS_URL + url_for( :controller => "song" , :action => "listen", :id => (song.artist.name + " - " + song.title) )+".mp3" ) %>
+       <% end %>               
+        
+    <script type="text/javascript" >    
+        defaultMusicTracks = <%= temparray.inspect %> ; 
+		MusicBlog.loadPlaylist();
+    </script>
+	tetetete
+</div>

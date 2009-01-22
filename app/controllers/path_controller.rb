@@ -1,3 +1,4 @@
+require 'path_scan_thread'
 class PathController < ApplicationController
   # Ein Pfad repräsentiert einen Physischen Pfad im Dateisystem
   # des Servers. Er enthält mehrere Genres und Artisten 
@@ -13,8 +14,10 @@ class PathController < ApplicationController
       if @pfad.valid?
         @pfad.save
         # Pfad nach Artisten untersuchen
-        @pfad.scanURI()
-        @pfad.scanGenres()
+        
+        @pfad.scan_uri() 
+        @pfad.scan_artists()
+        #self.scan( @pfad )
       end
     end
   end  

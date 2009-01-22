@@ -1,0 +1,7 @@
+<div id="albums">
+    <%= collection_select(:post, :album_id, @albums, :id, :title,
+    {  },  { :size => "10", :multiple => "multiple"}) %>
+    <%= observe_field("post_album_id", :update => 'script',
+    :url => {:action => :browse_songs}, :on => "changed" , :with => "'albums=' +value") %>
+	<%= render :partial => "song_array" %>
+</div>

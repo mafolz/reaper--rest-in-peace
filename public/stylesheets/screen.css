@@ -251,6 +251,14 @@ a[href="#"]{
 .song a{
 	font-size:		smaller;
 }
+#select, #post_artist_id, #post_genre_id, #post_album_id{
+    margin-top: 2px;
+	float:	left;
+    width:  32%;
+}
+#clear{
+    clear: both;
+}
 /*Begin Music DB Styles */
 #tag-status{
 	font-weight: bold;

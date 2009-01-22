@@ -1,0 +1,7 @@
+<div id="genres">
+    <%= collection_select(:post, :genre_id, @genres, :id, :name,
+    {  },  { :size => "10", :multiple => "multiple"}) %>
+    <%= observe_field("post_genre_id", :update => 'updatable',
+    :url => {:action => :browse_artists}, :on => "changed" , :with => "'genres=' +value") %>
+	
+</div>

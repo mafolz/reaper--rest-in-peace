@@ -78,6 +78,11 @@ class UserController < ApplicationController
         # zugriff auf @newuser.valid? nicht fruchtet
         if @newuser.valid?
           @created=true
+          # Wenn user Admin ist,(erste anmeldung) setze die Variable un erstelle ein basis genre
+          if params[:user][:access]=="admin"
+            @admin = true
+            Genre.create(:name => "unknown")
+          end
         end
         @newuser.save
       else        

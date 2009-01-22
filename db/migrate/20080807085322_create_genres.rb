@@ -1,9 +1,11 @@
+require 'genre'
 class CreateGenres < ActiveRecord::Migration
   def self.up
     create_table :genres do |t|
-      t.text  :name
-      t.integer :path_id
+      t.string  :name
     end
+    
+    add_index :genres, :name, :unique => true 
   end
 
   def self.down

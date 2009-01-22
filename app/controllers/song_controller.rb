@@ -14,13 +14,31 @@ class SongController < ApplicationController
   
   # REST ein element über ID anzeigen/downloaden
   def show
+    @song = Song.find(params[:id])
     respond_to do |format|
-      format.xml { render :xml => Song.find(params[:id]).to_xml }
+      format.html
+      format.xml { render :xml => @song.to_xml }
       format.mp3 do 
-        send_file  Song.find(params[:id]).uri 
-        puts Song.find(params[:id]).uri 
+        send_file  @song.uri 
       end
     end    
+  end
+  
+  # Javascript-Workarround zur Korrekten MP3 Anzeige.
+  # Dies ist für Erweiterungen wie z.B. songbird's javascripting Engine sehr wichtig
+  def listen
+    parsing_name = params[:id].scan( /(.*) - (.*)/)[0]
+    puts "\n\n"+ parsing_name.inspect
+    @artist = Artist.find_by_name(parsing_name[0])
+    puts "\n\n"+ @artist.inspect
+    @title = parsing_name[1]
+    puts "\n\n"+ @title.inspect
+    song = Song.find_by_title(@title)#, :conditions => "artist_id = #{@artist.id} ")
+    respond_to do |format|
+      format.mp3 do
+        send_file  song.uri
+      end
+    end
   end
   
   def edit

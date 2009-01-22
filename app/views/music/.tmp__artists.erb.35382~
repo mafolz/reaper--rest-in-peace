@@ -1,0 +1,6 @@
+<div id="artists">
+  <%= collection_select(:post, :artist_id, @artists, :id, :name,
+    {  },  { :size => "10", :multiple => "multiple"}) %>
+  <%=  observe_field("post_artist_id", :update => 'fields',
+    :url => {:action => :browse_album}, :on => "changed" , :with => "'artists=' +value") %>
+</div>

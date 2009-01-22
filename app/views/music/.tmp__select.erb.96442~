@@ -1,0 +1,31 @@
+<%# Author mafolz %>
+<%#
+Display a Genre List like Itunes which should ajax-based load
+new artist-lists
+%>
+<select id="select" size="10" name="Genres" multiple="multiple"
+        onChange="<%= remote_function(
+          :update => 'fields',
+          :url => { :action => 'select_songs'}) %> ">
+  <option value="all">Alle</option>
+  <% @genres.each do |genre| %>
+    <option value="<%= genre.id %>"><%= genre.name %></option>
+  <% end %>
+</select>
+
+<div id="artists">
+<%= collection_select(:post, :artist_id, @artists, :id, :name,
+    {  },  { :size => "10", :multiple => "multiple"}) %>
+<%=  observe_field("post_artist_id", :update => 'fields',
+   :url => {:action => :select_songs}, :on => "changed" , :with => "'artists=' +value") %>
+</div>
+
+<div id="album">
+  
+</div>
+<div id="clear" />
+<% @songs = Artist.find(:first).songs %>
+<%= render  :partial => "musiclient" %>
+<%#= select_tag "Select",options_for_select(@genres), html_options = {"size" => 10, "multiple" => true, "onchange" =>'alert(\'temp\')'} %>
+<%#= collection_select :genre,:name, @genres,:id,:name, html_options = {"size" => 10, "multiple" => true}%>
+

@@ -1,0 +1,26 @@
+<%= render  :partial => "musiclient" %>
+<div class="ripper">
+    <div id="cover">
+        <%= image_tag "drive-harddisk.png" %>
+    </div>
+    <div id="status">
+        <%# Wenn berechtigt %>
+        <%	if hasRole "tagger" %>
+        <%	end %>
+        <h2>Library:</h2>
+        <hr/>
+        <div id="fields">
+            <%=	render	:partial=>"genres" %>
+            <div id="updatable">
+                <%=	render	:partial=>"artists" %>
+                <%=	render	:partial=>"albums" %>
+            </div>
+            <div id="clear" />
+            <div id="songs">
+            </div>
+            <%# =  periodically_call_remote(:url => {:action => :show_songs, :ids => @ids}, :frequency => '1', :update => 'songs')  %>
+        </div>
+        <h2>Dupletten:</h2>
+        <hr/><%=	render	:partial=>"duplette" %>
+    </div>
+</div>

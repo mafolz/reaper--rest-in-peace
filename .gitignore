@@ -1,4 +1,5 @@
 .loadpath
+.svn
 .project
 config/database.yml
 *.log

@@ -1,0 +1,25 @@
+<div class="ripper">
+<div id="cover">
+  <%= image_tag "drive-harddisk.png" %>
+</div>
+<div id="status">
+  <%# Wenn berechtigt %>
+  <%	if hasRole "tagger" %>
+  <%	end	%>
+  <h2>Library:</h2>
+
+  <hr/>
+  <div id="fields">
+    <%=	render	:partial=>"genres" %>
+    <%=	render	:partial=>"artists" %>
+    <div id="clear" />
+
+
+      <% @songs = Artist.find(:first).songs %>
+      <%= render  :partial => "musiclient" %>
+    </div>
+    <h2>Dupletten:</h2>
+    <hr/>
+    <%=	render	:partial=>"duplette" %>
+  </div>
+</div>

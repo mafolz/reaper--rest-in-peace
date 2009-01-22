@@ -1,0 +1,5 @@
+<%# Author mafolz %>
+<%= params[:id] %>
+<% @songs.each do |song| %>
+	<% render :controller => "song" ,:action => "show" %>
+<% end %>

@@ -10,7 +10,13 @@
 		<%= error_messages_for( 'newuser',:header_message=>nil,:message=>nil) %>
 		&nbsp;
 		<%# Wenn Anlegen erfolgreich war %>
-		<%	if !@created.nil? %>
+		<%	if !@admin.nil? %>
+			<div>
+				Administrator wurde angelegt<br/>
+				sie können sich nun auf der Anmeldeseite einloggen
+			</div>
+			<%=	link_to("zurück",:controller=>"login")%>
+		<%	elsif !@created.nil? %>
 			<div>
 				Benutzer wurde angelegt<br/>
 				sie m&uuml;ssen warten bis sie ein Administrator freigeschaltet hat
