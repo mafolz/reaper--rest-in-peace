@@ -37,10 +37,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   # REST Mapping ohne ID aber mit Namen, da die ID's des Reapers gegenüber nicht bekannt sind
   # Die Artisten z.B es jedoch sind'
-  map.resources :login,  :controller  => 'User'
-  map.resources :Songs, :controller  => 'Song', :path_prefix => 'Genres/:Genre_id/Artists/:Artist_id'
-  map.resources :Genres,  :controller  => 'Genre' do |genre|
-    map.resources :Artists, :controller  => 'Artist', :path_prefix => 'Genres/:Genre_id' 
+  map.resources :login,  :controller  => 'user'
+  map.resources :songs, :controller  => 'songs', :path_prefix => 'genres/:genre_id/artists/:artist_id'
+  map.resources :genres,  :controller  => 'genres' do |genre|
+    map.resources :artists, :controller  => 'artists', :path_prefix => 'genres/:genre_id' 
   end
 
 end
